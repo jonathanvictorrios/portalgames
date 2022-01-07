@@ -45,6 +45,7 @@ services:
             test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
             retries: 3
             timeout: 5s
+
     redis:
         image: 'redis:alpine'
         ports:
@@ -83,6 +84,13 @@ services:
             - '/dev/shm:/dev/shm'
         networks:
             - sail
+    phpmyadmin:
+        image: phpmyadmin
+        restart: always
+        ports:
+        - 8080:80
+        environment:
+        - PMA_ARBITRARY=1
 networks:
     sail:
         driver: bridge
